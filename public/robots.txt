@@ -1,4 +1,13 @@
 User-agent: *
 Allow: /
 
+# Sitemaps
 Sitemap: https://portfolio.rsaw409.me/sitemap.xml
+Sitemap: https://portfolio.rsaw409.me/image-sitemap.xml
+
+# Image Crawling
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.png$
+Allow: /*.ico$

@@ -5,24 +5,100 @@
     <link rel="icon" href="/rsaw409-logos_white.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta name="author" content="rsaw409" />
-    <meta name="description" content="portfolio for rsaw409, rohitsaw" />
+
+    <!-- Primary Meta Tags -->
+    <title>Rohit Saw - Software Developer Portfolio</title>
+    <meta
+      name="title"
+      content="Rohit Kumar Saw - Software Developer Portfolio"
+    />
+    <meta
+      name="description"
+      content="Portfolio of Rohit Saw (rsaw409), a software developer specializing in web development, React, and modern JavaScript applications. View projects, experience, and skills."
+    />
+    <meta name="author" content="Rohit Kumar Saw" />
     <meta
       name="keywords"
-      content="rsaw409, rsaw409@gmail.com, rohitsaw, coder, Rohit, Saw, portfolio, project"
+      content="rsaw409, rohitsaw, Rohit Kumar Saw, software developer, web developer, React developer, portfolio, projects, full stack developer, JavaScript developer"
     />
-    <meta name="image-source" content="https://pngtree.com/" />
-    <link rel="apple-touch-icon" href="/rsaw409-logos_white.png" />
 
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://portfolio.rsaw409.me/" />
+    <meta
+      property="og:title"
+      content="Rohit Saw - Software Developer Portfolio"
+    />
+    <meta
+      property="og:description"
+      content="Portfolio of Rohit Saw (rsaw409), a software developer specializing in web development, React, and modern JavaScript applications. View projects, experience, and skills."
+    />
+    <meta property="og:image" content="" id="og-image" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://portfolio.rsaw409.me/" />
+    <meta
+      property="twitter:title"
+      content="Rohit Saw - Software Developer Portfolio"
+    />
+    <meta
+      property="twitter:description"
+      content="Portfolio of Rohit Saw (rsaw409), a software developer specializing in web development, React, and modern JavaScript applications."
+    />
+    <meta property="twitter:image" content="" id="twitter-image" />
+
+    <!-- Image Optimization -->
     <link rel="manifest" href="/manifest.json" />
 
-    <title>rsaw409</title>
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" id="person-schema">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Rohit Saw",
+        "alternateName": "rsaw409",
+        "url": "https://portfolio.rsaw409.me",
+        "image": "",
+        "sameAs": [],
+        "jobTitle": "Software Developer",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Self"
+        }
+      }
+    </script>
+
+    <!-- Dynamic Meta Updates -->
+    <script>
+      window.addEventListener("load", function () {
+        const userState = window.__INITIAL_STATE__?.user;
+        if (userState && userState.profile_url) {
+          // Update Open Graph image
+          document
+            .getElementById("og-image")
+            .setAttribute("content", userState.profile_url);
+
+          // Update Twitter image
+          document
+            .getElementById("twitter-image")
+            .setAttribute("content", userState.profile_url);
+
+          // Update Schema.org Person image
+          const personSchema = JSON.parse(
+            document.getElementById("person-schema").textContent
+          );
+          personSchema.image = userState.profile_url;
+          document.getElementById("person-schema").textContent =
+            JSON.stringify(personSchema);
+        }
+      });
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
 
     <div id="root" class="loader"></div>
     <script type="module" src="/src/index.jsx"></script>
-
   </body>
 </html>
