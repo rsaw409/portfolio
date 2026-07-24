@@ -25,6 +25,7 @@ import {
   setUserFromUrl,
 } from "../../redux/action.js";
 import { useDispatch } from "react-redux";
+import { generateUrl } from "../../utils/util.js";
 
 const AnimateRoutes = ({ setOpenSnackBar }) => {
   const location = useLocation();
@@ -38,51 +39,23 @@ const AnimateRoutes = ({ setOpenSnackBar }) => {
         const email = resObject.user?.emails[0]?.value;
         const displayName = resObject.user?.displayName;
 
-        dispatch(setUserFromGoogle(resObject.user));
         dispatch(getUser(email, displayName));
+        dispatch(setUserFromGoogle(resObject.user));
 
-        const currentPath = window.location.pathname;
-        const parts = currentPath.split("/").filter(Boolean); // e.g. ["email", "projects"]
-
-        if (parts.length === 0) {
-          navigate(`/${email}/about`, { replace: true });
-          return;
-        }
-
-        const [mayBeEmail] = parts;
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mayBeEmail)) {
-          navigate(`/${email}/${parts.join("/")}`, { replace: true });
-          return;
-        } else {
-          navigate(`/${email}/${parts.slice(1).join("/")}`, { replace: true });
-          return;
-        }
+        const { path } = generateUrl(window.location.pathname, email, true);
+        navigate(path, { replace: true });
+        return;
       } catch (error) {
-        console.error("Error fetching logged-in user:", error);
-        const currentPath = window.location.pathname;
-        const parts = currentPath.split("/").filter(Boolean);
+        const { path, email } = generateUrl(
+          window.location.pathname,
+          "rsaw409@gmail.com",
+          false,
+        );
 
-        if (parts.length === 0) {
-          dispatch(getUser("rsaw409@gmail.com", null));
-          dispatch(setUserFromUrl("rsaw409@gmail.com"));
-          navigate(`/rsaw409@gmail.com/about`, { replace: true });
-          return;
-        }
-
-        const [mayBeEmail] = parts;
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mayBeEmail)) {
-          dispatch(getUser("rsaw409@gmail.com", null));
-          dispatch(setUserFromUrl("rsaw409@gmail.com"));
-          navigate(`/rsaw409@gmail.com/${parts.join("/")}`, { replace: true });
-          return;
-        } else {
-          dispatch(getUser(mayBeEmail, null));
-          dispatch(setUserFromUrl(mayBeEmail));
-          navigate(`/${mayBeEmail}/${parts.slice(1).join("/")}`, {
-            replace: true,
-          });
-          return;
-        }
+        dispatch(getUser(email, null));
+        dispatch(setUserFromUrl(email));
+        navigate(path, { replace: true });
+        return;
       }
     };
 

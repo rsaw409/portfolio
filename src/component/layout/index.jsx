@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { useParams } from "react-router";
 import { Outlet, Link } from "react-router-dom";
 import Footer from "../footer";
 import Profile from "../profile/index.jsx";
@@ -25,12 +24,14 @@ const Layout = ({ setOpenSnackBar }) => {
     email: state.userFromGoogle?.emails?.[0]?.value ?? state.userFromUrl,
   }));
 
+  const userId = email?.split("@")?.[0];
+
   const routes = [
-    { path: `/${email}/about`, routeName: "About" },
-    { path: `/${email}/workexperience`, routeName: "Work" },
-    { path: `/${email}/certification`, routeName: "Certification" },
-    { path: `/${email}/projects`, routeName: "Project" },
-    { path: `/${email}/contacts`, routeName: "Contact" },
+    { path: `/${userId}/about`, routeName: "About" },
+    { path: `/${userId}/workexperience`, routeName: "Work" },
+    { path: `/${userId}/certification`, routeName: "Certification" },
+    { path: `/${userId}/projects`, routeName: "Project" },
+    { path: `/${userId}/contacts`, routeName: "Contact" },
   ];
 
   const login = () => {

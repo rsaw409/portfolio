@@ -35,36 +35,37 @@ const Profile = ({
 }) => {
   const [anchorElUser, setAnchorElUser] = useState(null);
   const navigate = useNavigate();
+  const userId = email.split("@")[0];
 
   const menuItems = [
     {
       menu_name: "Edit User",
-      routeName: `/${email}/about/details/edit`,
+      routeName: `/${userId}/about/details/edit`,
       icon: faUserCircle,
     },
     {
       menu_name: "Edit Project",
-      routeName: `/${email}/projects/edit`,
+      routeName: `/${userId}/projects/edit`,
       icon: faProjectDiagram,
     },
     {
       menu_name: "Edit Certificate",
-      routeName: `/${email}/certificatation/edit`,
+      routeName: `/${userId}/certificatation/edit`,
       icon: faCertificate,
     },
     {
       menu_name: "Edit Skill",
-      routeName: `/${email}/about/skill/edit`,
+      routeName: `/${userId}/about/skill/edit`,
       icon: faCog,
     },
     {
       menu_name: "Edit Education",
-      routeName: `/${email}/about/education/edit`,
+      routeName: `/${userId}/about/education/edit`,
       icon: faGraduationCap,
     },
     {
       menu_name: "Edit Work",
-      routeName: `/${email}/workexperience/edit`,
+      routeName: `/${userId}/workexperience/edit`,
       icon: faBriefcase,
     },
   ];

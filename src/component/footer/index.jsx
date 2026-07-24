@@ -7,12 +7,14 @@ const Footer = () => {
   const location = useLocation();
   const { emailId } = useParams();
 
+  const userId = emailId.split("@")[0];
+
   const routes = [
-    { path: `/${emailId}/about`, routeName: "About" },
-    { path: `/${emailId}/workexperience`, routeName: "Work" },
-    { path: `/${emailId}/certification`, routeName: "Certification" },
-    { path: `/${emailId}/projects`, routeName: "Projects" },
-    { path: `/${emailId}/contacts`, routeName: "Contact" },
+    { path: `/${userId}/about`, routeName: "About" },
+    { path: `/${userId}/workexperience`, routeName: "Work" },
+    { path: `/${userId}/certification`, routeName: "Certification" },
+    { path: `/${userId}/projects`, routeName: "Projects" },
+    { path: `/${userId}/contacts`, routeName: "Contact" },
   ];
 
   return (
