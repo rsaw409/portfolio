@@ -9,5 +9,9 @@ export default defineConfig({
   plugins: [svgr(), react()],
   build: {
     outDir: "build",
+    chunkSizeWarningLimit: 1500, // 1.5 MB
+  },
+  esbuild: {
+    drop: ["console", "debugger"],
   },
 });

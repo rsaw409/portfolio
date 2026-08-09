@@ -4,7 +4,6 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 import store from "./redux/store.js";
-import reportWebVitals from "./reportWebVitals.js";
 
 import "./index.css";
 
@@ -16,10 +15,5 @@ root.render(
         <App />
       </React.StrictMode>
     </BrowserRouter>
-  </Provider>
+  </Provider>,
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

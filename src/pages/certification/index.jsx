@@ -15,7 +15,7 @@ const Certification = () => {
       isCertificatesLoading: state.isCertificatesLoading,
       certificates: state.certificates,
       isValidView: state.isValidView,
-    })
+    }),
   );
 
   const [hoverIndex, setHoverIndex] = useState(-1);
@@ -37,43 +37,47 @@ const Certification = () => {
         </div>
       ) : (
         <div className={styles.cardsWrapper}>
-          {certificates.map((each, index) => (
-            <motion.div
-              key={each.id || index}
-              className={styles.card}
-              whileHover={{ y: -5, scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 200 }}
-              onMouseEnter={() => setHoverIndex(index)}
-              onMouseLeave={() => setHoverIndex(-1)}
-            >
-              <div className={styles.cardHeader}>
-                <h3 className={styles.certName}>{each.certificate_name}</h3>
-                <NavLink
-                  to={each.verification_url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={styles.iconButton}
-                >
-                  <ArrowOutwardIcon
-                    style={{
-                      color:
-                        hoverIndex === index
-                          ? "var(--primary-color)"
-                          : "inherit",
-                    }}
-                  />
-                </NavLink>
-              </div>
+          {certificates
+            .sort((a, b) =>
+              b.certification_date.localeCompare(a.certification_date),
+            )
+            .map((each, index) => (
+              <motion.div
+                key={each.id || index}
+                className={styles.card}
+                whileHover={{ y: -5, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 200 }}
+                onMouseEnter={() => setHoverIndex(index)}
+                onMouseLeave={() => setHoverIndex(-1)}
+              >
+                <div className={styles.cardHeader}>
+                  <h3 className={styles.certName}>{each.certificate_name}</h3>
+                  <NavLink
+                    to={each.verification_url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={styles.iconButton}
+                  >
+                    <ArrowOutwardIcon
+                      style={{
+                        color:
+                          hoverIndex === index
+                            ? "var(--primary-color)"
+                            : "inherit",
+                      }}
+                    />
+                  </NavLink>
+                </div>
 
-              <Typography variant="body2" className={styles.certDetails}>
-                <strong>Certified By:</strong> {each.certification_authority}
-              </Typography>
-              <Typography variant="body2" className={styles.certDetails}>
-                <strong>Date:</strong>{" "}
-                {new Date(each.certification_date).toLocaleDateString()}
-              </Typography>
-            </motion.div>
-          ))}
+                <Typography variant="body2" className={styles.certDetails}>
+                  <strong>Certified By:</strong> {each.certification_authority}
+                </Typography>
+                <Typography variant="body2" className={styles.certDetails}>
+                  <strong>Date:</strong>{" "}
+                  {new Date(each.certification_date).toLocaleDateString()}
+                </Typography>
+              </motion.div>
+            ))}
         </div>
       )}
     </motion.div>
