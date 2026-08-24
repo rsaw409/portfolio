@@ -25,10 +25,11 @@ const EditUserDetails = ({ styles, setOpenSnackBar }) => {
   const [blog, setBlog] = useState(user?.social_links?.blog_url);
   const [twitter, setTwitter] = useState(user?.social_links?.twitter_url);
   const [stackOverFlow, setStackoverflow] = useState(
-    user?.social_links?.stackoverflow_url
+    user?.social_links?.stackoverflow_url,
   );
   const [about, setAbout] = useState(user?.about);
   const [profile_url, setProfileUrl] = useState(user?.profile_url);
+  const [leetcode, setLeetcode] = useState(user?.social_links?.leetcode_url);
 
   const dispatch = useDispatch();
 
@@ -45,6 +46,7 @@ const EditUserDetails = ({ styles, setOpenSnackBar }) => {
         blog_url: blog,
         twitter_url: twitter,
         stackoverflow_url: stackOverFlow,
+        leetcode_url: leetcode,
       },
     };
     dispatch(updateUser(updatedUser, user.id));
@@ -189,6 +191,15 @@ const EditUserDetails = ({ styles, setOpenSnackBar }) => {
                       label="StackOverflow"
                       value={stackOverFlow}
                       onChange={(e) => setStackoverflow(e.target.value)}
+                    />
+                  </Grid>
+
+                  <Grid item xs={6}>
+                    <TextField
+                      fullWidth
+                      label="leetCode"
+                      value={leetcode}
+                      onChange={(e) => setLeetcode(e.target.value)}
                     />
                   </Grid>
                 </Grid>

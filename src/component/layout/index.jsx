@@ -12,12 +12,14 @@ import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import { useSelector } from "react-redux";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 import styles from "./index.module.css";
 
 const Layout = ({ setOpenSnackBar }) => {
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   const { user, email } = useSelector((state) => ({
     user: state.userFromGoogle,
@@ -59,7 +61,20 @@ const Layout = ({ setOpenSnackBar }) => {
                         isActive ? styles.navLinkActive : styles.navLink
                       }
                     >
-                      {eachRoute.routeName}
+                      {isActive && (
+                        <motion.span
+                          className={styles.activeIndicator}
+                          layoutId="active-navigation-indicator"
+                          transition={{
+                            type: "spring",
+                            stiffness: 380,
+                            damping: 30,
+                          }}
+                        />
+                      )}
+                      <span className={styles.navLinkLabel}>
+                        {eachRoute.routeName}
+                      </span>
                     </Link>
                   </li>
                 );
@@ -127,7 +142,7 @@ const Layout = ({ setOpenSnackBar }) => {
                 to={eachRoute.path}
                 className={
                   eachRoute.path === location.pathname
-                    ? styles.navLinkActive
+                    ? `${styles.navLinkActive} ${styles.drawerNavLinkActive}`
                     : styles.navLink
                 }
               >
@@ -169,7 +184,18 @@ const Layout = ({ setOpenSnackBar }) => {
       </Drawer>
 
       <div className={styles.contentWrapper}>
-        <Outlet />
+        <AnimatePresence initial={false}>
+          <motion.main
+            key={location.pathname}
+            className={styles.routeContent}
+            initial={shouldReduceMotion ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={shouldReduceMotion ? undefined : { opacity: 0 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.28, ease: "easeOut" }}
+          >
+            <Outlet />
+          </motion.main>
+        </AnimatePresence>
       </div>
       <div className={styles.footerWrapper}>
         <Footer />

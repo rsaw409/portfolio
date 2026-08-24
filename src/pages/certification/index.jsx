@@ -25,12 +25,7 @@ const Certification = () => {
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5 }}
-      className={styles.pageContainer}
-    >
+    <div className={styles.pageContainer}>
       {isCertificatesLoading ? (
         <div className={styles.center}>
           <CircularProgress />
@@ -45,8 +40,21 @@ const Certification = () => {
               <motion.div
                 key={each.id || index}
                 className={styles.card}
-                whileHover={{ y: -5, scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 200 }}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    duration: 0.42,
+                    delay: index * 0.12,
+                    ease: "easeOut",
+                  },
+                }}
+                whileHover={{
+                  y: -5,
+                  scale: 1.02,
+                  transition: { type: "spring", stiffness: 200 },
+                }}
                 onMouseEnter={() => setHoverIndex(index)}
                 onMouseLeave={() => setHoverIndex(-1)}
               >
@@ -80,7 +88,7 @@ const Certification = () => {
             ))}
         </div>
       )}
-    </motion.div>
+    </div>
   );
 };
 

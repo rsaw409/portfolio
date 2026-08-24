@@ -43,6 +43,7 @@ const addOrUpdateUser = async (user, user_id) => {
   formData.append("blog_url", user.social_links.blog_url);
   formData.append("twitter_url", user.social_links.twitter_url);
   formData.append("stackoverflow_url", user.social_links.stackoverflow_url);
+  formData.append("leetcode_url", user.social_links.leetcode_url);
 
   const url = `${base_url}/user?user_id=${user_id}`;
 

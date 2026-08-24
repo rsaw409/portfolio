@@ -9,8 +9,6 @@ import Certification from "../../pages/certification/index";
 import WorkExperience from "../../pages/workexperience/index";
 import ErrorPage from "../../pages/ErrorPage/index.jsx";
 
-import { AnimatePresence } from "framer-motion";
-
 import EditUserDetails from "../../pages/edit-details/edit-user-details/edit-user-details.jsx";
 import EditCertificates from "../../pages/edit-details/edit-certficates/edit-certificates.jsx";
 import EditExperiences from "../../pages/edit-details/edit-experiences/edit-experiences.jsx";
@@ -63,9 +61,11 @@ const AnimateRoutes = ({ setOpenSnackBar }) => {
   }, []);
 
   return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route path="/:emailId" element={<Layout />}>
+    <Routes location={location}>
+      <Route
+        path="/:emailId"
+        element={<Layout setOpenSnackBar={setOpenSnackBar} />}
+      >
           <Route
             path="about/details/edit"
             element={<EditUserDetails setOpenSnackBar={setOpenSnackBar} />}
@@ -101,9 +101,8 @@ const AnimateRoutes = ({ setOpenSnackBar }) => {
           <Route path="projects" element={<Projects />} />
 
           <Route path="*" element={<ErrorPage />} />
-        </Route>
-      </Routes>
-    </AnimatePresence>
+      </Route>
+    </Routes>
   );
 };
 

@@ -16,6 +16,7 @@ import {
   faTwitter,
   faGithub,
   faLinkedin,
+  faLeetcode,
 } from "@fortawesome/free-brands-svg-icons";
 import ErrorPage from "../ErrorPage/index.jsx";
 import { transformSkills } from "../../utils/util.js";
@@ -51,6 +52,7 @@ const About = () => {
   const blog_url = user?.social_links?.blog_url;
   const twitter_url = user?.social_links?.twitter_url;
   const stackoverflow_url = user?.social_links?.stackoverflow_url;
+  const leetcode_url = user?.social_links?.leetcode_url;
 
   const [hover, setHover] = useState({
     education: false,
@@ -58,12 +60,13 @@ const About = () => {
   });
 
   const socialLinks = {
-    github: github_url,
-    linkedin: linkedin_url,
-    stackOverFlow: stackoverflow_url,
-    blog: blog_url,
-    twitter: twitter_url,
-    mail: `mailto:${email}`,
+    github: { icon: faGithub, url: github_url },
+    linkedin: { icon: faLinkedin, url: linkedin_url },
+    stackOverFlow: { icon: faStackOverflow, url: stackoverflow_url },
+    blog: { icon: faBlog, url: blog_url },
+    twitter: { icon: faTwitter, url: twitter_url },
+    leetcode: { icon: faLeetcode, url: leetcode_url },
+    mail: { icon: faEnvelope, url: `mailto:${email}` },
   };
 
   if (!isValidView) {
@@ -71,11 +74,7 @@ const About = () => {
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5 }}
-    >
+    <>
       <div className={styles.pageContainer}>
         {/* Profile Section */}
         <motion.div
@@ -88,33 +87,19 @@ const About = () => {
           <p className={styles.tagline}>Software Engineer</p>
 
           <div className={styles.socialLinks}>
-            {Object.entries(socialLinks).map(([key, link]) =>
-              link ? (
+            {Object.entries(socialLinks).map(([key, { url, icon }]) =>
+              url ? (
                 <motion.a
                   whileHover={{ scale: 1.2 }}
-                  href={link}
+                  href={url}
                   key={key}
                   target="_blank"
                   rel="noreferrer"
                   className={styles.socialIcon}
                 >
-                  <FontAwesomeIcon
-                    icon={
-                      key === "github"
-                        ? faGithub
-                        : key === "linkedin"
-                        ? faLinkedin
-                        : key === "stackOverFlow"
-                        ? faStackOverflow
-                        : key === "twitter"
-                        ? faTwitter
-                        : key === "blog"
-                        ? faBlog
-                        : faEnvelope
-                    }
-                  />
+                  <FontAwesomeIcon icon={icon} />
                 </motion.a>
-              ) : null
+              ) : null,
             )}
           </div>
         </motion.div>
@@ -139,8 +124,12 @@ const About = () => {
         <motion.div
           whileHover={{ scale: 1.01 }}
           className={styles.cardContainer}
-          onMouseEnter={() => setHover((prev) => ({ ...prev, education: true }))}
-          onMouseLeave={() => setHover((prev) => ({ ...prev, education: false }))}
+          onMouseEnter={() =>
+            setHover((prev) => ({ ...prev, education: true }))
+          }
+          onMouseLeave={() =>
+            setHover((prev) => ({ ...prev, education: false }))
+          }
         >
           <div className={styles.cardTitle}>
             <FontAwesomeIcon icon={faGraduationCap} /> <span>Education</span>
@@ -159,7 +148,7 @@ const About = () => {
                     <p className={styles.institute}>{each.institute_name}</p>
                     <span className={styles.date}>
                       {`${dayjs(each.start_date).format("MM/YYYY")} - ${dayjs(
-                        each.end_date
+                        each.end_date,
                       ).format("MM/YYYY")}`}
                     </span>
                     <span className={styles.score}>
@@ -189,7 +178,10 @@ const About = () => {
           ) : (
             <div className={styles.skillsWrapper}>
               {skills.map((eachSkill) => (
-                <div key={eachSkill.skill_category} className={styles.skillCategory}>
+                <div
+                  key={eachSkill.skill_category}
+                  className={styles.skillCategory}
+                >
                   <h4>{eachSkill.skill_category}</h4>
                   <div className={styles.skillChips}>
                     {eachSkill.skills.map((e) => (
@@ -204,7 +196,7 @@ const About = () => {
           )}
         </motion.div>
       </div>
-    </motion.div>
+    </>
   );
 };
 

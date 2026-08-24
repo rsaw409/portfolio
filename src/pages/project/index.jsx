@@ -30,12 +30,7 @@ const Projects = () => {
   }
 
   return (
-    <motion.div
-      className={styles.projectsContainer}
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5 }}
-    >
+    <div className={styles.projectsContainer}>
       <h2 className={styles.projectsTitle}>Things I’ve built</h2>
       <p className={styles.projectsSubTitle}>
         A collection of personal and open-source projects that reflect my journey
@@ -103,7 +98,7 @@ const Projects = () => {
           ))}
         </div>
       )}
-    </motion.div>
+    </div>
   );
 };
 

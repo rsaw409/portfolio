@@ -45,12 +45,7 @@ const Contact = () => {
   }
 
   return (
-    <motion.div
-      className={styles.contactContainer}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6 }}
-    >
+    <div className={styles.contactContainer}>
       {isUserLoading ? (
         <div className={styles.center}>
           <CircularProgress />
@@ -97,7 +92,7 @@ const Contact = () => {
           </motion.div>
         </>
       )}
-    </motion.div>
+    </div>
   );
 };
 

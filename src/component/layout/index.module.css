@@ -10,6 +10,10 @@
   padding-top: 8rem;
 }
 
+.contentWrapper {
+  display: grid;
+}
+
 .navbar {
   position: fixed;
   top: 3vh;
@@ -52,21 +56,53 @@
   color: var(--text-secondary, #444);
   padding: 0.45rem 0.9rem;
   border-radius: 30px;
-  transition: background 0.2s ease, color 0.2s ease;
+  position: relative;
+  display: inline-flex;
+  isolation: isolate;
+  transition: color 0.2s ease;
 }
 
 .navLink:hover {
-  background: rgba(108, 99, 255, 0.08); /* subtle hover */
   color: var(--primary-color, #6c63ff);
 }
 
 .navLinkActive {
   text-decoration: none;
   color: #fff;
-  background: var(--primary-color, #6c63ff);
   padding: 0.45rem 1rem;
   border-radius: 30px;
+  position: relative;
+  display: inline-flex;
+  isolation: isolate;
+  transition: color 0.2s ease;
+}
+
+.navLinkActive:hover {
+  color: #fff;
+}
+
+.navLinkLabel {
+  position: relative;
+  z-index: 1;
+}
+
+.activeIndicator {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background: var(--primary-color, #6c63ff);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.drawerNavLinkActive {
+  background: var(--primary-color, #6c63ff);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.routeContent {
+  grid-area: 1 / 1;
+  min-width: 0;
 }
 
 .profileSection {
@@ -119,5 +155,12 @@
     font-size: 1rem;
     font-weight: 700;
     color: var(--primary-color, #6c63ff);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navLink,
+  .navLinkActive {
+    transition: none;
   }
 }
