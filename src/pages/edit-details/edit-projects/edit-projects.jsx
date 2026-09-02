@@ -154,6 +154,12 @@ const EditProject = ({ styles }) => {
 
   return (
     <div className={styles.editProjectContainer}>
+      <div className={styles.pageHeader}>
+        <h2 className={styles.pageTitle}>Manage Projects</h2>
+        <p className={styles.pageSubtitle}>
+          Add, edit, or remove the projects showcased on your portfolio
+        </p>
+      </div>
       <FullFeaturedCrudGrid
         ButtonName={"Projects"}
         rows={projects?.map((each) => {

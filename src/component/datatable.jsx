@@ -121,7 +121,7 @@ export default function FullFeaturedCrudGrid({
               key="save"
               icon={<SaveIcon fontSize="small" />}
               label="Save"
-              sx={{ color: "success.main" }}
+              sx={{ color: "var(--primary-color, #14b8a6)" }}
               onClick={handleSaveClick(id)}
             />,
             <GridActionsCellItem
@@ -140,7 +140,7 @@ export default function FullFeaturedCrudGrid({
             icon={<EditIcon fontSize="small" />}
             label="Edit"
             onClick={handleEditClick(id)}
-            sx={{ color: "primary.main" }}
+            sx={{ color: "var(--primary-color, #14b8a6)" }}
           />,
           <GridActionsCellItem
             key="delete"
@@ -158,18 +158,42 @@ export default function FullFeaturedCrudGrid({
     <Box
       sx={{
         width: "100%",
-        height: "100%",
+        backgroundColor: "#fff",
+        borderRadius: 3,
+        border: "1px solid rgba(20, 184, 166, 0.15)",
+        boxShadow: "0 4px 14px rgba(20, 184, 166, 0.08)",
+        overflow: "hidden",
         "& .MuiDataGrid-root": {
-          borderRadius: 3,
-          border: "1px solid #e0e0e0",
-          boxShadow: "0 2px 6px rgba(0,0,0,0.05)",
-          backgroundColor: "#fff",
+          border: "none",
+          backgroundColor: "transparent",
+        },
+        "& .MuiDataGrid-columnHeaders": {
+          backgroundColor: "rgba(20, 184, 166, 0.06)",
+          borderBottom: "1px solid rgba(20, 184, 166, 0.18)",
+        },
+        "& .MuiDataGrid-columnHeader": {
+          fontWeight: 600,
+          color: "#0f766e",
+          fontSize: "0.85rem",
+          letterSpacing: "0.02em",
         },
         "& .MuiDataGrid-cell": {
           fontSize: "0.9rem",
+          color: "#333",
+          borderBottom: "1px solid rgba(0, 0, 0, 0.04)",
+        },
+        "& .MuiDataGrid-cell:focus, & .MuiDataGrid-cell:focus-within": {
+          outline: "none",
         },
         "& .MuiDataGrid-row:hover": {
-          backgroundColor: "rgba(25, 118, 210, 0.04)",
+          backgroundColor: "rgba(20, 184, 166, 0.04)",
+        },
+        "& .MuiDataGrid-row.Mui-editing": {
+          backgroundColor: "rgba(20, 184, 166, 0.06)",
+        },
+        "& .MuiDataGrid-footerContainer": {
+          borderTop: "1px solid rgba(20, 184, 166, 0.12)",
+          backgroundColor: "rgba(20, 184, 166, 0.03)",
         },
       }}
     >
@@ -230,13 +254,29 @@ function EditToolbar({ ButtonName, setDummyRow, setRowModesModel }) {
   };
 
   return (
-    <GridToolbarContainer sx={{ p: 1.5, justifyContent: "flex-end" }}>
+    <GridToolbarContainer
+      sx={{
+        p: 1.5,
+        justifyContent: "space-between",
+        alignItems: "center",
+        gap: 1.5,
+      }}
+    >
+      <Box sx={{ fontSize: "0.85rem", color: "text.secondary" }}>
+        Tip: click the pencil to edit, trash to delete
+      </Box>
       <Button
         variant="contained"
-        color="primary"
         startIcon={<AddIcon />}
         onClick={handleClick}
-        sx={{ textTransform: "none", borderRadius: 2, fontWeight: 500 }}
+        sx={{
+          textTransform: "none",
+          borderRadius: 2,
+          fontWeight: 500,
+          backgroundColor: "var(--primary-color)",
+          boxShadow: "none",
+          "&:hover": { backgroundColor: "var(--primary-color-dark, #0f766e)" },
+        }}
       >
         Add {ButtonName}
       </Button>

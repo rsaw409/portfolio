@@ -66,41 +66,41 @@ const AnimateRoutes = ({ setOpenSnackBar }) => {
         path="/:emailId"
         element={<Layout setOpenSnackBar={setOpenSnackBar} />}
       >
-          <Route
-            path="about/details/edit"
-            element={<EditUserDetails setOpenSnackBar={setOpenSnackBar} />}
-          />
-          <Route
-            path="about/education/edit"
-            element={<EditEducation setOpenSnackBar={setOpenSnackBar} />}
-          />
-          <Route
-            path="about/skill/edit"
-            element={<EditSkills setOpenSnackBar={setOpenSnackBar} />}
-          />
-          <Route path="about" element={<About />} />
+        <Route
+          path="about/details/edit"
+          element={<EditUserDetails setOpenSnackBar={setOpenSnackBar} />}
+        />
+        <Route
+          path="about/education/edit"
+          element={<EditEducation setOpenSnackBar={setOpenSnackBar} />}
+        />
+        <Route
+          path="about/skill/edit"
+          element={<EditSkills setOpenSnackBar={setOpenSnackBar} />}
+        />
+        <Route path="about" element={<About />} />
 
-          <Route path="contacts" element={<Contact />} />
+        <Route path="contacts" element={<Contact />} />
 
-          <Route
-            path="workexperience/edit"
-            element={<EditExperiences setOpenSnackBar={setOpenSnackBar} />}
-          />
-          <Route path="workexperience" element={<WorkExperience />} />
+        <Route
+          path="workexperience/edit"
+          element={<EditExperiences setOpenSnackBar={setOpenSnackBar} />}
+        />
+        <Route path="workexperience" element={<WorkExperience />} />
 
-          <Route
-            path="certificatation/edit"
-            element={<EditCertificates setOpenSnackBar={setOpenSnackBar} />}
-          />
-          <Route path="certification" element={<Certification />} />
+        <Route
+          path="certification/edit"
+          element={<EditCertificates setOpenSnackBar={setOpenSnackBar} />}
+        />
+        <Route path="certification" element={<Certification />} />
 
-          <Route
-            path="projects/edit"
-            element={<EditProjects setOpenSnackBar={setOpenSnackBar} />}
-          />
-          <Route path="projects" element={<Projects />} />
+        <Route
+          path="projects/edit"
+          element={<EditProjects setOpenSnackBar={setOpenSnackBar} />}
+        />
+        <Route path="projects" element={<Projects />} />
 
-          <Route path="*" element={<ErrorPage />} />
+        <Route path="*" element={<ErrorPage />} />
       </Route>
     </Routes>
   );

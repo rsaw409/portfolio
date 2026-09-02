@@ -1,31 +1,37 @@
-.editSkillContainer {
-  padding-top: 80px;
+.page {
+  padding: 0.5rem 2rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
   width: 100%;
+  box-sizing: border-box;
 }
 
-.editCertificateContainer {
-  padding-top: 80px;
-  width: 100%;
+.pageHeader {
+  text-align: center;
+  margin: 0.5rem 0 1.75rem;
 }
 
-.editEducationContainer {
-  padding-top: 80px;
-  width: 100%;
+.pageTitle {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary-color, #14b8a6);
+  margin: 0 0 0.4rem;
 }
 
-.editExperienceContainer {
-  padding-top: 80px;
-  width: 100%;
+.pageSubtitle {
+  font-size: 0.95rem;
+  color: #555;
+  margin: 0;
+}
+
+.editSkillContainer,
+.editCertificateContainer,
+.editEducationContainer,
+.editExperienceContainer,
+.editProjectContainer {
+  composes: page;
 }
 
 .editUserContainer {
-  padding-top: 80px;
-  width: 94%;
-  margin-left: 3%;
-  margin-right: 3%;
-}
-
-.editProjectContainer {
-  padding-top: 80px;
-  width: 100%;
+  composes: page;
 }

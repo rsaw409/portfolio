@@ -90,6 +90,12 @@ const EditExperiences = ({ styles }) => {
 
   return (
     <div className={styles.editExperienceContainer}>
+      <div className={styles.pageHeader}>
+        <h2 className={styles.pageTitle}>Manage Work Experience</h2>
+        <p className={styles.pageSubtitle}>
+          Add, edit, or remove your work experience entries
+        </p>
+      </div>
       <FullFeaturedCrudGrid
         ButtonName={"Work Experience"}
         rows={workExperiences?.map((each) => {

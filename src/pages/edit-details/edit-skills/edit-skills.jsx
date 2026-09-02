@@ -67,6 +67,12 @@ const EditSkills = ({ styles }) => {
 
   return (
     <div className={styles.editSkillContainer}>
+      <div className={styles.pageHeader}>
+        <h2 className={styles.pageTitle}>Manage Skills</h2>
+        <p className={styles.pageSubtitle}>
+          Add, edit, or remove the skills displayed on your portfolio
+        </p>
+      </div>
       <FullFeaturedCrudGrid
         ButtonName={"Skill"}
         rows={skills?.map((each) => {

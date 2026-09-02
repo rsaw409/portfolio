@@ -50,7 +50,7 @@ const Profile = ({
     },
     {
       menu_name: "Edit Certificate",
-      routeName: `/${userId}/certificatation/edit`,
+      routeName: `/${userId}/certification/edit`,
       icon: faCertificate,
     },
     {

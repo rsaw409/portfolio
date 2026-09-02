@@ -1,60 +1,54 @@
+import styles from "./index.module.css";
+
 const ErrorPage = () => {
-  const handleRetry = () => {
-    window.location.href = "/"; // navigate to home
+  const handleGoHome = () => {
+    window.location.href = "/";
+  };
+
+  const handleGoBack = () => {
+    if (window.history.length > 1) {
+      window.history.back();
+    } else {
+      window.location.href = "/";
+    }
   };
 
   return (
-    <div
-      style={{
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#f8f9fa",
-        fontFamily: "Arial, sans-serif",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: "500px",
-          padding: "30px",
-          borderRadius: "12px",
-          backgroundColor: "white",
-          boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-          textAlign: "center",
-        }}
-      >
-        <h2 style={{ color: "#dc3545", marginBottom: "10px" }}>
-          Something went wrong
-        </h2>
-        <p style={{ marginBottom: "15px", color: "#555" }}>
-          Possible reasons are:
+    <div className={styles.wrapper}>
+      <div className={styles.card}>
+        <div className={styles.iconWrap}>
+          <div className={styles.icon} aria-hidden="true">
+            404
+          </div>
+        </div>
+
+        <p className={styles.code}>Page not found</p>
+        <h2 className={styles.title}>Something went wrong</h2>
+        <p className={styles.subtitle}>
+          We couldn’t find the page you’re looking for. Possible reasons are:
         </p>
-        <ul
-          style={{
-            textAlign: "left",
-            margin: "0 auto 20px",
-            padding: "0 20px",
-            color: "#333",
-          }}
-        >
+
+        <ul className={styles.reasons}>
           <li>This URL does not exist</li>
           <li>This user does not exist</li>
         </ul>
-        <button
-          onClick={handleRetry}
-          style={{
-            padding: "10px 20px",
-            backgroundColor: "#007bff",
-            border: "none",
-            borderRadius: "8px",
-            color: "white",
-            fontSize: "16px",
-            cursor: "pointer",
-          }}
-        >
-          Go Home
-        </button>
+
+        <div className={styles.actions}>
+          <button
+            type="button"
+            className={styles.primaryButton}
+            onClick={handleGoHome}
+          >
+            Go Home
+          </button>
+          <button
+            type="button"
+            className={styles.secondaryButton}
+            onClick={handleGoBack}
+          >
+            Go Back
+          </button>
+        </div>
       </div>
     </div>
   );

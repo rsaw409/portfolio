@@ -123,6 +123,12 @@ const EditCertificates = ({ styles }) => {
 
   return (
     <div className={styles.editCertificateContainer}>
+      <div className={styles.pageHeader}>
+        <h2 className={styles.pageTitle}>Manage Certificates</h2>
+        <p className={styles.pageSubtitle}>
+          Add, edit, or remove the certificates listed on your portfolio
+        </p>
+      </div>
       <FullFeaturedCrudGrid
         ButtonName={"Certificate"}
         rows={certificates?.map((each) => {

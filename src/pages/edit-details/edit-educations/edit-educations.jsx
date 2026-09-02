@@ -93,6 +93,12 @@ const EditEducations = ({ styles }) => {
 
   return (
     <div className={styles.editEducationContainer}>
+      <div className={styles.pageHeader}>
+        <h2 className={styles.pageTitle}>Manage Education</h2>
+        <p className={styles.pageSubtitle}>
+          Add, edit, or remove your education entries
+        </p>
+      </div>
       <FullFeaturedCrudGrid
         ButtonName={"Education"}
         rows={educations?.map((each) => {
