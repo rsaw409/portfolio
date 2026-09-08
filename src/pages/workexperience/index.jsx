@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
 import CircularProgress from "@mui/material/CircularProgress";
-import dayjs from "dayjs";
 import Typography from "@mui/material/Typography";
 import ErrorPage from "../ErrorPage/index.jsx";
 import { motion } from "framer-motion";
+import { formatDateTemporal } from "../../utils/util.js";
 
 import styles from "./index.module.css";
 
@@ -41,9 +41,9 @@ const WorkExperience = () => {
                 <div className={styles.cardHeader}>
                   <h3 className={styles.company}>{work.company_name}</h3>
                   <span className={styles.duration}>
-                    {dayjs(work.start_date).format("MMM YYYY")} –{" "}
+                    {formatDateTemporal(work.start_date, "MMM YYYY")} –{" "}
                     {work.end_date
-                      ? dayjs(work.end_date).format("MMM YYYY")
+                      ? formatDateTemporal(work.end_date, "MMM YYYY")
                       : "Current"}
                   </span>
                 </div>

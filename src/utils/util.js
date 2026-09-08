@@ -16,7 +16,9 @@ function transformSkills(skills) {
     return Object.keys(tmp).map((skill_category) => {
       return {
         skill_category: skill_category,
-        skills: tmp[skill_category].sort((a,b) => b.skill_proficiency - a.skill_proficiency),
+        skills: tmp[skill_category].sort(
+          (a, b) => b.skill_proficiency - a.skill_proficiency,
+        ),
       };
     });
   } else {
@@ -30,6 +32,37 @@ function formatDateYYYYMMDD(date) {
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
+}
+
+function formatDateTemporal(dateString, format) {
+  const temporalDate = Temporal.PlainDate.from(dateString);
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  switch (format) {
+    case "DD/MM/YYYY":
+      return `${String(temporalDate.day).padStart(2, "0")}/${String(temporalDate.month).padStart(2, "0")}/${temporalDate.year}`;
+    case "MM/YYYY":
+      return `${String(temporalDate.month).padStart(2, "0")}/${temporalDate.year}`;
+    case "MMM YYYY":
+      return `${monthNames[temporalDate.month - 1]} ${temporalDate.year}`;
+    case "YYYY-MM":
+      return `${temporalDate.year}-${String(temporalDate.month).padStart(2, "0")}`;
+    default:
+      return temporalDate.toString();
+  }
 }
 
 function generateUrl(currentPath, email, isLoggedIn) {
@@ -66,4 +99,10 @@ function generateUrl(currentPath, email, isLoggedIn) {
   };
 }
 
-export { groupBy, transformSkills, formatDateYYYYMMDD, generateUrl };
+export {
+  groupBy,
+  transformSkills,
+  formatDateYYYYMMDD,
+  generateUrl,
+  formatDateTemporal,
+};

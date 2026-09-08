@@ -11,18 +11,18 @@ This is a **React-based personal portfolio website** for Rohit Saw (rsaw409), a 
 
 ## Tech Stack
 
-| Category | Technologies |
-|----------|--------------|
-| **Frontend Framework** | React 18, Vite 6 |
-| **State Management** | Redux Toolkit, React-Redux, Redux Logger (dev) |
-| **Routing** | React Router DOM v6 |
-| **UI Library** | MUI (Material UI) v5, MUI X Data Grid |
-| **Animations** | Framer Motion |
-| **Icons** | FontAwesome (React), MUI Icons |
-| **Styling** | CSS Modules, Emotion (CSS-in-JS) |
-| **Authentication** | Google OAuth (handled by backend) |
-| **Build** | Vite with SVGR plugin |
-| **Node** | Node 24.x |
+| Category               | Technologies                                   |
+| ---------------------- | ---------------------------------------------- |
+| **Frontend Framework** | React 18, Vite 6                               |
+| **State Management**   | Redux Toolkit, React-Redux, Redux Logger (dev) |
+| **Routing**            | React Router DOM v6                            |
+| **UI Library**         | MUI (Material UI) v5, MUI X Data Grid          |
+| **Animations**         | Framer Motion                                  |
+| **Icons**              | FontAwesome (React), MUI Icons                 |
+| **Styling**            | CSS Modules, Emotion (CSS-in-JS)               |
+| **Authentication**     | Google OAuth (handled by backend)              |
+| **Build**              | Vite with SVGR plugin                          |
+| **Node**               | Node 24.x                                      |
 
 ---
 
@@ -77,30 +77,34 @@ portfolio/
 ## Key Features
 
 ### 1. **Multi-user Portfolio System**
+
 - URLs follow pattern: `/{userId}/{page}` (e.g., `/rsaw409/about`)
 - Falls back to default email (`rsaw409@gmail.com`) if not logged in
 - Google OAuth login via backend (`/login/success`)
 
 ### 2. **Pages (Public View)**
-| Route | Component | Description |
-|-------|-----------|-------------|
-| `/:userId/about` | `About` | Profile, bio, social links, education timeline, skills by category |
-| `/:userId/workexperience` | `WorkExperience` | Timeline of work experience |
-| `/:userId/certification` | `Certification` | Certificates with tags |
-| `/:userId/projects` | `Projects` | Project cards with tech stack icons & links |
-| `/:userId/contacts` | `Contact` | Contact form |
+
+| Route                     | Component        | Description                                                        |
+| ------------------------- | ---------------- | ------------------------------------------------------------------ |
+| `/:userId/about`          | `About`          | Profile, bio, social links, education timeline, skills by category |
+| `/:userId/workexperience` | `WorkExperience` | Timeline of work experience                                        |
+| `/:userId/certification`  | `Certification`  | Certificates with tags                                             |
+| `/:userId/projects`       | `Projects`       | Project cards with tech stack icons & links                        |
+| `/:userId/contacts`       | `Contact`        | Contact form                                                       |
 
 ### 3. **Edit Pages (Authenticated User Only)**
-| Route | Component | Data Managed |
-|-------|-----------|--------------|
-| `/:userId/about/details/edit` | `EditUserDetails` | Profile, bio, social links |
-| `/:userId/about/education/edit` | `EditEducation` | Education entries |
-| `/:userId/about/skill/edit` | `EditSkills` | Skills with proficiency % |
-| `/:userId/workexperience/edit` | `EditExperiences` | Work experience |
-| `/:userId/certificatation/edit` | `EditCertificates` | Certifications |
-| `/:userId/projects/edit` | `EditProjects` | Projects with tech tags |
+
+| Route                           | Component          | Data Managed               |
+| ------------------------------- | ------------------ | -------------------------- |
+| `/:userId/about/details/edit`   | `EditUserDetails`  | Profile, bio, social links |
+| `/:userId/about/education/edit` | `EditEducation`    | Education entries          |
+| `/:userId/about/skill/edit`     | `EditSkills`       | Skills with proficiency %  |
+| `/:userId/workexperience/edit`  | `EditExperiences`  | Work experience            |
+| `/:userId/certification/edit`   | `EditCertificates` | Certifications             |
+| `/:userId/projects/edit`        | `EditProjects`     | Projects with tech tags    |
 
 ### 4. **DataGrid CRUD System** (`component/datatable.jsx`)
+
 - Reusable `FullFeaturedCrudGrid` component using MUI X DataGrid
 - Row editing with inline save/cancel
 - Add new rows with dummy data
@@ -109,7 +113,9 @@ portfolio/
 - All edit pages wrap this via `EditDetailsPage` HOC
 
 ### 5. **State Management (Redux)**
+
 **State Shape:**
+
 ```js
 {
   projects: [],           isProjectsLoading: true,
@@ -128,6 +134,7 @@ portfolio/
 ```
 
 **Key Actions (in `redux/action.js`):**
+
 - `getUser(email, name)` - Fetches user + loads all related data
 - `getAllProjects/Certificates/Skills/Educations/Experiences(user_id)`
 - `addSkill/Certificate/Education/Experience/Project(new_row, user_id)`
@@ -158,6 +165,7 @@ npm run preview
 ## Environment Configuration
 
 **API Base URL** (in `src/api/api.js`):
+
 ```js
 // Production
 https://backend.portfolio.rsaw409.me/portfolio
@@ -167,6 +175,7 @@ http://localhost:3000/portfolio
 ```
 
 **Vite Config** (`vite.config.js`):
+
 - Dev server: port 3001
 - Build output: `build/`
 - Console/debugger stripped in production
@@ -188,6 +197,7 @@ Google OAuth handled entirely by backend. Frontend just redirects to `${base_url
 ## Key Utilities
 
 **`src/utils/util.js`:**
+
 - `groupBy(array, callbackFn)` - Groups array by key
 - `transformSkills(skills)` - Groups skills by category, sorts by proficiency desc
 - `formatDateYYYYMMDD(date)` - Formats Date to YYYY-MM-DD
@@ -227,6 +237,7 @@ Google OAuth handled entirely by backend. Frontend just redirects to `${base_url
 ## Common Tasks
 
 ### Adding a New Editable Entity
+
 1. Create API file in `src/api/` (follow `project.js` pattern)
 2. Add action creators in `redux/action.js` (getAll, add, delete, addDummy, removeDummy)
 3. Add constants in `redux/constant.js`
@@ -236,11 +247,13 @@ Google OAuth handled entirely by backend. Frontend just redirects to `${base_url
 7. Add nav link in `component/layout/index.jsx` (if needed)
 
 ### Modifying Styles
+
 - Component styles: Edit corresponding `index.module.css`
 - Global styles: Edit `src/index.css` (CSS variables)
 - MUI theme overrides: Use `sx` prop or create theme provider
 
 ### Adding a New Page
+
 1. Create component in `src/pages/{pageName}/index.jsx`
 2. Add route in `component/routes/index.jsx`
 3. Add nav link in `component/layout/index.jsx` routes array

@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CircularProgressWithLabel from "../../../component/circularprogessbarwithlabel/index";
 import FullFeaturedCrudGrid from "../../../component/datatable.jsx";
 import { randomId } from "@mui/x-data-grid-generator";
-import dayjs from "dayjs";
+import { formatDateTemporal } from "../../../utils/util.js";
 import {
   addDummyEducation,
   addEducation,
@@ -62,7 +62,7 @@ const EditEducations = ({ styles }) => {
       editable: true,
       align: "left",
       type: "date",
-      valueFormatter: (params) => dayjs(params?.value).format("DD/MM/YYYY"),
+      valueFormatter: (params) => formatDateTemporal(params?.value, "DD/MM/YYYY"),
     },
     {
       field: "end_date",
@@ -71,7 +71,7 @@ const EditEducations = ({ styles }) => {
       editable: true,
       align: "left",
       type: "date",
-      valueFormatter: (params) => dayjs(params?.value).format("DD/MM/YYYY"),
+      valueFormatter: (params) => formatDateTemporal(params?.value, "DD/MM/YYYY"),
     },
     {
       field: "score",

@@ -608,5 +608,5 @@ export {
   removeDummyCertificate,
   removeDummyEducation,
   removeDummyProject,
-  setUserFromUrl
+  setUserFromUrl,
 };

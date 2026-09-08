@@ -8,6 +8,7 @@ import ErrorPage from "../ErrorPage/index.jsx";
 import { motion } from "framer-motion";
 
 import styles from "./index.module.css";
+import { formatDateTemporal } from "../../utils/util.js";
 
 const Certification = () => {
   let { isCertificatesLoading, certificates, isValidView } = useSelector(
@@ -82,7 +83,7 @@ const Certification = () => {
                 </Typography>
                 <Typography variant="body2" className={styles.certDetails}>
                   <strong>Date:</strong>{" "}
-                  {new Date(each.certification_date).toLocaleDateString()}
+                  {formatDateTemporal(each.certification_date, "MMM YYYY")}
                 </Typography>
               </motion.div>
             ))}

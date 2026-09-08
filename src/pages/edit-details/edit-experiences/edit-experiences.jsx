@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import FullFeaturedCrudGrid from "../../../component/datatable.jsx";
 import { randomId } from "@mui/x-data-grid-generator";
-import dayjs from "dayjs";
+import { formatDateTemporal } from "../../../utils/util.js";
 import {
   addDummyExperience,
   addExperience,
@@ -65,7 +65,7 @@ const EditExperiences = ({ styles }) => {
       editable: true,
       align: "left",
       type: "date",
-      valueFormatter: (params) => dayjs(params?.value).format("DD/MM/YYYY"),
+      valueFormatter: (params) => formatDateTemporal(params?.value, "DD/MM/YYYY"),
     },
     {
       field: "end_date",
@@ -77,7 +77,7 @@ const EditExperiences = ({ styles }) => {
       valueFormatter: (params) =>
         params?.value === null
           ? "Present"
-          : dayjs(params?.value).format("DD/MM/YYYY"),
+          : formatDateTemporal(params?.value, "DD/MM/YYYY"),
     },
     {
       field: "details",

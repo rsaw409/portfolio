@@ -3,7 +3,7 @@ import FullFeaturedCrudGrid from "../../../component/datatable.jsx";
 import { randomId } from "@mui/x-data-grid-generator";
 import { Chip, Stack } from "@mui/material";
 import Link from "@mui/material/Link";
-import dayjs from "dayjs";
+import { formatDateTemporal } from "../../../utils/util.js";
 import TextField from "@mui/material/TextField";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 
@@ -66,7 +66,8 @@ const EditCertificates = ({ styles }) => {
       align: "left",
       flex: 1,
       type: "date",
-      valueFormatter: (params) => dayjs(params?.value).format("DD/MM/YYYY"),
+      valueFormatter: (params) =>
+        formatDateTemporal(params?.value, "DD/MM/YYYY"),
     },
     {
       field: "verification_url",

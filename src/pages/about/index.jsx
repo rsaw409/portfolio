@@ -6,11 +6,6 @@ import {
   faEnvelope,
   faBlog,
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { motion } from "framer-motion";
-import { useSelector } from "react-redux";
-import CircularProgress from "@mui/material/CircularProgress";
-import dayjs from "dayjs";
 import {
   faStackOverflow,
   faTwitter,
@@ -18,8 +13,12 @@ import {
   faLinkedin,
   faLeetcode,
 } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
+import CircularProgress from "@mui/material/CircularProgress";
+import { transformSkills, formatDateTemporal } from "../../utils/util.js";
 import ErrorPage from "../ErrorPage/index.jsx";
-import { transformSkills } from "../../utils/util.js";
 
 import styles from "./index.module.css";
 
@@ -147,9 +146,7 @@ const About = () => {
                     <h4>{each.degree_name}</h4>
                     <p className={styles.institute}>{each.institute_name}</p>
                     <span className={styles.date}>
-                      {`${dayjs(each.start_date).format("MM/YYYY")} - ${dayjs(
-                        each.end_date,
-                      ).format("MM/YYYY")}`}
+                      {`${formatDateTemporal(each.start_date, "MMM YYYY")} - ${formatDateTemporal(each.end_date, "MMM YYYY")}`}
                     </span>
                     <span className={styles.score}>
                       {each.score > 10 ? each.score / 10 : each.score}
