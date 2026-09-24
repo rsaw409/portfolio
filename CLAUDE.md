@@ -218,7 +218,14 @@ Google OAuth handled entirely by backend. Frontend just redirects to `${base_url
 
 - **Build output:** `build/` directory
 - **Production API:** `https://backend.portfolio.rsaw409.me/portfolio`
-- **Deploy target:** Likely static hosting (Netlify, Vercel, or similar) with backend API separate
+- **Deploy target:** Render static site (behind Cloudflare), backend API separate. Redirect/Rewrite rules live in the Render dashboard, not in the repo; a catch-all rewrite to `/index.html` serves the SPA for unknown paths.
+
+### Split invite links (`public/split-join.html`)
+
+This domain also hosts invite links for the Split Android app (`developer.rohitsaw.split`, repo `split-frontend`): `/joinGroup/<inviteId>`. `public/.well-known/assetlinks.json` verifies them as Android App Links, so phones with Split installed open the app directly and never load this site. `public/split-join.html` is the landing page for everyone else:
+- It is served by a Render dashboard **Rewrite** `/joinGroup/*` → `/split-join.html`, which must sit **above** the SPA catch-all. It is deliberately standalone HTML, not a React route: `AnimateRoutes` rewrites the URL on every load and would navigate away from it.
+- On Android it navigates to an `intent://` URL for the app with `S.browser_fallback_url` set to the Play Store listing: Chrome (and Samsung Internet, Edge, Brave) opens Split if installed, otherwise the Play Store. A 2s timer sends browsers that ignore `intent://` to the Play Store too; it is cancelled if the page is hidden (the app opened).
+- The invite id is everything after `/joinGroup/` (ids are base64-like and may contain `/`, `+`, `=`), matching how the app parses it. The intent URL's host is hard-coded to `portfolio.rsaw409.me` because it must match the app's intent filter.
 
 ---
 
