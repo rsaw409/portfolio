@@ -7,6 +7,13 @@
     <title>Join a group on Split</title>
     <meta name="description" content="You've been invited to a group on Split, the app for splitting expenses." />
     <link rel="icon" href="/split-icon.png" />
+    <!-- Link preview in WhatsApp, Telegram, Messages etc. when an invite is shared. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Split" />
+    <meta property="og:title" content="You're invited to a group on Split" />
+    <meta property="og:description" content="Tap to join the group in Split, the app for splitting expenses with friends." />
+    <meta property="og:image" content="https://portfolio.rsaw409.me/split-og.png" />
+    <meta name="twitter:card" content="summary" />
     <!--
       Landing page for Split invite links (/joinGroup/<inviteId>), served via a
       Render rewrite so the address bar keeps the invite link. Deliberately
@@ -122,9 +129,18 @@
           inviteId = raw;
         }
 
+        // The invite rides along as the Play install referrer, which the app
+        // reads on first launch to join the group without the link. Encoded
+        // twice: Play decodes the referrer parameter once before handing the
+        // app "invite=<encoded id>".
+        var playUrl = inviteId
+          ? PLAY_URL + "&referrer=" +
+            encodeURIComponent("invite=" + encodeURIComponent(inviteId))
+          : PLAY_URL;
+
         var isAndroid = /Android/i.test(navigator.userAgent);
         var install = document.getElementById("install");
-        install.href = PLAY_URL;
+        install.href = playUrl;
 
         if (inviteId) {
           document.getElementById("invite-id").textContent = inviteId;
@@ -133,8 +149,8 @@
 
         if (!isAndroid) {
           document.getElementById("message").textContent =
-            "Split is available for Android. Open this link on your Android " +
-            "phone, or scan the invite QR code with its camera.";
+            "Split is currently available on Android. Open this invite link " +
+            "on your Android phone to join the group.";
           return;
         }
 
@@ -145,20 +161,20 @@
         var intentUrl =
           "intent://" + LINK_HOST + PREFIX + encodeURIComponent(inviteId) +
           "#Intent;scheme=https;package=" + PACKAGE +
-          ";S.browser_fallback_url=" + encodeURIComponent(PLAY_URL) + ";end";
+          ";S.browser_fallback_url=" + encodeURIComponent(playUrl) + ";end";
 
         var open = document.getElementById("open");
         open.href = intentUrl;
         open.hidden = false;
         document.getElementById("message").textContent =
-          "Opening Split… If nothing happens, use the buttons below. " +
-          "After installing, open this invite link again to join.";
+          "Opening Split… If you don't have it yet, install it from " +
+          "Google Play and open it: you'll join the group automatically.";
 
         // Browsers that ignore intent:// (or block it without a tap) leave
         // this page visible; send those to the Play Store. If the app or the
         // Play Store did open, the page is hidden and the timer is cancelled.
         var fallback = setTimeout(function () {
-          if (document.visibilityState === "visible") location.href = PLAY_URL;
+          if (document.visibilityState === "visible") location.href = playUrl;
         }, 2000);
         function cancel() { clearTimeout(fallback); }
         document.addEventListener("visibilitychange", function () {
