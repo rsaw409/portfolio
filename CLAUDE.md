@@ -5,7 +5,7 @@
 This is a **React-based personal portfolio website** for Rohit Saw (rsaw409), a software developer. It's a single-page application built with React 18, Vite, Redux Toolkit, React Router v6, MUI (Material UI), and Framer Motion for animations.
 
 **Live URL:** https://portfolio.rsaw409.me
-**Backend API:** https://backend.portfolio.rsaw409.me/portfolio
+**Backend API:** https://portfolio-backend-app-267y.onrender.com/portfolio, reached from the browser as `https://portfolio.rsaw409.me/api` (see Build & Deploy)
 
 ---
 
@@ -167,8 +167,8 @@ npm run preview
 **API Base URL** (in `src/api/api.js`):
 
 ```js
-// Production
-https://backend.portfolio.rsaw409.me/portfolio
+// Production (same-origin, proxied to the backend by a Render rewrite)
+/api
 
 // Development
 http://localhost:3000/portfolio
@@ -217,8 +217,15 @@ Google OAuth handled entirely by backend. Frontend just redirects to `${base_url
 ## Build & Deploy
 
 - **Build output:** `build/` directory
-- **Production API:** `https://backend.portfolio.rsaw409.me/portfolio`
+- **Production API:** `/api` on this site's domain, proxied to `https://portfolio-backend-app-267y.onrender.com/portfolio`
 - **Deploy target:** Render static site (behind Cloudflare), backend API separate. Redirect/Rewrite rules live in the Render dashboard, not in the repo; a catch-all rewrite to `/index.html` serves the SPA for unknown paths.
+
+### Backend proxy (`/api/*`)
+
+The browser never calls the backend's onrender domain directly. A Render dashboard **Rewrite** `/api/*` → `https://portfolio-backend-app-267y.onrender.com/portfolio/*`, which must sit **above** the SPA catch-all, proxies API calls through this site's own domain:
+- The backend's login `session` cookie and `XSRF-TOKEN` cookie are only usable when the backend looks same-site to the browser. From `onrender.com` they are third-party cookies: the session isn't sent on `fetch`, the XSRF cookie (set with `Domain=portfolio.rsaw409.me`) is rejected, and Safari/Firefox/Brave block third-party cookies regardless of `SameSite`.
+- Google OAuth goes through the proxy too: the backend's Google strategy hard-codes `callbackURL` to `https://portfolio.rsaw409.me/api/google/callback` in production (behind the proxy it sees the onrender host), and that URL is the authorized redirect URI in Google Cloud Console.
+- Development skips the proxy and calls `http://localhost:3000/portfolio` directly (same site as `localhost:3001`).
 
 ### Split invite links (`public/split-join.html`)
 
