@@ -227,14 +227,6 @@ The browser never calls the backend's onrender domain directly. A Render dashboa
 - Google OAuth goes through the proxy too: the backend's Google strategy hard-codes `callbackURL` to `https://portfolio.rsaw409.me/api/google/callback` in production (behind the proxy it sees the onrender host), and that URL is the authorized redirect URI in Google Cloud Console.
 - Development skips the proxy and calls `http://localhost:3000/portfolio` directly (same site as `localhost:3001`).
 
-### Split invite links (`public/split-join.html`)
-
-This domain also hosts invite links for the Split Android app (`developer.rohitsaw.split`, repo `split-frontend`): `/joinGroup/<inviteId>`. `public/.well-known/assetlinks.json` verifies them as Android App Links, so phones with Split installed open the app directly and never load this site. `public/split-join.html` is the landing page for everyone else:
-- It is served by a Render dashboard **Rewrite** `/joinGroup/*` → `/split-join.html`, which must sit **above** the SPA catch-all. It is deliberately standalone HTML, not a React route: `AnimateRoutes` rewrites the URL on every load and would navigate away from it.
-- On Android it navigates to an `intent://` URL for the app with `S.browser_fallback_url` set to the Play Store listing: Chrome (and Samsung Internet, Edge, Brave) opens Split if installed, otherwise the Play Store. A 2s timer sends browsers that ignore `intent://` to the Play Store too; it is cancelled if the page is hidden (the app opened).
-- Every Play Store link on the page carries the invite as the **install referrer** (`&referrer=` + `encodeURIComponent("invite=" + encodeURIComponent(id))`, encoded twice because Play decodes it once), which the app reads on first launch to join the group automatically. The Split repo's `test/invite_link_test.dart` pins this exact encoding, so change both together.
-- The invite id is everything after `/joinGroup/` (ids are base64-like and may contain `/`, `+`, `=`), matching how the app parses it. The intent URL's host is hard-coded to `portfolio.rsaw409.me` because it must match the app's intent filter.
-
 ---
 
 ## Important Notes for Development
